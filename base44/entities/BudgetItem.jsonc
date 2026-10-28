@@ -1,0 +1,104 @@
+{
+  "name": "BudgetItem",
+  "type": "object",
+  "properties": {
+    "plan_id": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "estimate_low": {
+      "type": "number"
+    },
+    "estimate_high": {
+      "type": "number"
+    },
+    "quoted": {
+      "type": "number"
+    },
+    "actual": {
+      "type": "number"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "must_have",
+        "nice_to_have",
+        "skip"
+      ],
+      "default": "must_have"
+    },
+    "locked": {
+      "type": "boolean",
+      "default": false
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "hidden_cost_note": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "plan_id",
+    "category",
+    "label"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "name": "Plan",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "wedding",
+        "birthday",
+        "community",
+        "anniversary",
+        "baby_shower",
+        "farewell",
+        "other"
+      ],
+      "default": "other"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "location": {
+      "type": "string"
+    },
+    "city_tier": {
+      "type": "string",
+      "enum": [
+        "metro",
+        "large_city",
+        "small_town",
+        "rural",
+        "unknown"
+      ],
+      "default": "unknown"
+    },
+    "guest_count": {
+      "type": "number"
+    },
+    "budget_total": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string",
+      "default": "INR"
+    },
+    "style": {
+      "type": "string"
+    },
+    "venue_type": {
+      "type": "string"
+    },
+    "dietary": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cultural_traditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "accessibility_needs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "must_haves": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "exclusions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_brief": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "draft",
+        "active",
+        "completed"
+      ],
+      "default": "draft"
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

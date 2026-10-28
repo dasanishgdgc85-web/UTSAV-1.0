@@ -1,0 +1,110 @@
+{
+  "name": "Vendor",
+  "type": "object",
+  "properties": {
+    "plan_id": {
+      "type": "string"
+    },
+    "vendor_type": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "contact": {
+      "type": "string"
+    },
+    "essential": {
+      "type": "boolean",
+      "default": true
+    },
+    "why": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "shortlisted",
+        "contacted",
+        "quote_received",
+        "booked",
+        "paid",
+        "passed"
+      ],
+      "default": "shortlisted"
+    },
+    "quote_amount": {
+      "type": "number"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contract_checks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "red_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "user_added": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "plan_id",
+    "vendor_type"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
